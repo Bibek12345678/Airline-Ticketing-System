@@ -1,0 +1,98 @@
+﻿@model TicketBooking.Models.Customer
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Customer</h4>
+    <hr />
+    <div class="form-group">
+        <label class="control-label col-md-2"
+               for="CustomerId">CustomerId</label> <div class="col-md-10">
+            <input class="form-control text-box single-line"
+                   id="CustomerId"
+                   name="CustomerId"
+                   type="number"
+                   value=""
+                   data-bind="value: CustomerId">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2"
+               for="CustomerName">CustomerName</label> <div class="col-md-10">
+            <input class="form-control text-box single-line"
+                   id="CustomerName"
+                   name="CustomerName"
+                   type="text"
+                   value=""
+                   data-bind="value: CustomerName">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2"
+               for="Salary">Salary</label> <div class="col-md-10">
+            <input class="form-control text-box single-line"
+                   id="Salary"
+                   name="Salary"
+                   type="text"
+                   value=""
+                   data-bind="value: Salary">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2"
+               for="DepartName">DepartName</label> <div class="col-md-10">
+            <input class="form-control text-box single-line"
+                   id="DepartName"
+                   name="DepartName"
+                   type="text"
+                   value=""
+                   data-bind="textInput: DepartName">
+        </div>
+    </div>
+    <p>
+        <button type="button" data-bind="click: deleteCustomer">Delete Customer</button> |
+        <a href="@Url.Action("Index", "Customer")">Back to List</a>
+    </p>
+
+</div>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/knockout-3.5.1.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        ko.applyBindings(DeleteViewModel);
+        console.log("hello");
+    });
+  var initialData = '@Html.Raw(ViewBag.InitialData)'; //get the raw json
+    var parsedJSON = $.parseJSON(initialData); //parse the json client side
+    var DeleteViewModel = {
+        Customers: ko.observableArray([]),
+        CustomerId: ko.observable(parsedJSON.CustomerId),
+        CustomerName: ko.observable(parsedJSON.CustomerName),
+        Salary: ko.observable(parsedJSON.Salary),
+        DepartName: ko.observable(parsedJSON.DepartName),
+        deleteCustomer: function () {
+            $.ajax({
+                type: "POST",
+                url: "/Customer/Delete",
+                data: ko.toJSON(this),
+                contentType: "application/json",
+                success: function (data) {
+                    alert("Record Successfully Deleted");
+                   location.href = "/Customer/Index";
+                },
+                error: function () {
+                    alert("failed");
+                }
+            })
+        }
+    }
+    
+</script>
+

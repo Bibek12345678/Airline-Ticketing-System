@@ -9,10 +9,12 @@ namespace TicketBooking.Models
     public class Customer
     {
         [Key]
-        public int CustomerNo { get; set; }
+        public int CustomerId { get; set; }
         public string CustomerName { get; set; }
         public int Salary { get; set; }
         public string DepartName { get; set; }
+
+
 
 
     }

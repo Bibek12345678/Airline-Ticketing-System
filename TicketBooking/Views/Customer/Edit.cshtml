@@ -1,0 +1,116 @@
+﻿@model TicketBooking.Models.Customer
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Customer</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @*@Html.HiddenFor(model => model.CustomerId)*@
+    <div class="form-group">
+        <label class="control-label col-md-2"
+               for="CustomerId">CustomerId</label> <div class="col-md-10">
+            <input class="form-control text-box single-line"
+                   id="CustomerId"
+                   name="CustomerId"
+                   type="number"
+                   value=""
+                   data-bind="value: CustomerId">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2"
+               for="CustomerName">CustomerName</label> <div class="col-md-10">
+            <input class="form-control text-box single-line"
+                   id="CustomerName"
+                   name="CustomerName"
+                   type="text"
+                   value=""
+                   data-bind="value: CustomerName">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2"
+               for="Salary"> Salary</label> <div class="col-md-10">
+            <input class="form-control text-box single-line"
+                   id="Salary"
+                   name="Salary"
+                   type="number"
+                   value=""
+                   data-bind="textInput: Salary">
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2"
+               for="DepartName">DepartName</label> <div class="col-md-10">
+            <input class="form-control text-box single-line"
+                   id="DepartName"
+                   name="DepartName"
+                   type="text"
+                   value=""
+                   data-bind="textInput: DepartName">
+        </div>
+    </div>
+
+    <p>
+        <button type="button" data-bind="click: editCustomer">
+            UpdateCustomer
+        </button>
+    </p>
+</div>
+ 
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/knockout-3.5.1.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        ko.applyBindings(EditViewModel);
+        console.log('clicked');
+    });
+     var initialData = '@Html.Raw(ViewBag.InitialData)'; //get the raw json
+    var parsedJSON = $.parseJSON(initialData); //parse the json client side
+    var EditViewModel = {
+        Customers: ko.observableArray([]),
+        CustomerId: ko.observable(parsedJSON.CustomerId),
+        CustomerName: ko.observable(parsedJSON.CustomerName),
+        Salary: ko.observable(parsedJSON.Salary),
+        DepartName: ko.observable(parsedJSON.DepartName),
+        editCustomer: function () {
+            $.ajax({
+                type: "POST",
+                url: "/Customer/Edit",
+                data: ko.toJSON(this),
+                contentType: "application/json",
+                success: function (data) {
+                    alert("Record Successfully Updated");
+                    location.href = "/Customer/Index";
+                },
+                error: function () {
+                    alert("Failed");
+                    console.log("failed");
+                }
+
+            })
+        }
+    }
+</script>
+
+

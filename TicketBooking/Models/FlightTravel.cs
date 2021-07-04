@@ -3,7 +3,7 @@ namespace TicketBooking.Models
 {
     public class FlightTravel
     {
-        [Key]
+   [Key]
         public int ID { get; set; }
         public int FromLocation { get; set; }
         public int ToLocation { get; set; }

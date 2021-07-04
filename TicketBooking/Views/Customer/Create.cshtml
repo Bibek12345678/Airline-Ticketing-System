@@ -14,9 +14,10 @@
         @ViewBag.Message
     </div>
 }
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
@@ -28,20 +29,20 @@
                        name="CustomerName"
                        type="text"
                        value=""
-                       data-bind="textInput: CustomerName">
+                       data-bind="textInput: CustomerName" pattern="[a-zA-Z\s]+" required>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-md-2"
                    for="Salary"> Salary</label> <div class="col-md-10">
-    <input class="form-control text-box single-line"
-           id="Salary"
-           name="Salary"
-           type="number"
-           value=""
-           data-bind="textInput: Salary" required>
+                <input class="form-control text-box single-line"
+                       id="Salary"
+                       name="Salary"
+                       type="number"
+                       value=""
+                       data-bind="textInput: Salary" required>
 
-</div>
+            </div>
         </div>
 
         <div class="form-group">
@@ -52,61 +53,61 @@
                        name="DepartName"
                        type="text"
                        value=""
-                       data-bind="textInput: DepartName">
+                       data-bind="textInput: DepartName" pattern="[a-zA-Z\s]+" required>
             </div>
         </div>
 
         <tr>
             <td><button data-bind="click: Save">Save</button></td>
         </tr>
-
-    }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
-<script src="~/Scripts/jquery-3.4.1.min.js"></script>
-<script src="~/Scripts/knockout-3.5.1.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-<script type="text/javascript">
-    $(function () {
-        ko.applyBindings(CustomerViewModel());
-    });
-    var CustomerViewModel = function () {
-        //Declare observable will be bind with UI
-        var self = this;
-        self.CustomerName = ko.observable("");
-        self.Salary = ko.observable("");
-        self.DepartName = ko.observable("");
-        console.log("clicked");
-        //Object which stored data stored in the observable
-        var CustomerData = {
-            CustomerName: self.CustomerName,
-            Salary: self.Salary,
-            DepartName: self.DepartName,
-        };
-        //Declaring an observableArray for Storing The Json Response
-        self.Customers = ko.observableArray([]);
-        self.Save = function () {
-            $.ajax({           
-                type: "POST",
-                url: "/Customer/Create",
-                data: ko.toJSON(CustomerData), // convert observable data into Json
-                contentType: "application/json",
-                success: function (data) {
-                    alert("Record added Successfully");
-                    console.log("working");
-                    location.href = "create";
-                },
-               
-                error : function() {
-                    alert("Failed");
-                }
-
-            })
+        </div>
         }
-    }
-   
-</script>
+
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+
+        <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+        <script src="~/Scripts/knockout-3.5.1.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+        <script type="text/javascript">
+            $(function () {
+                ko.applyBindings(CustomerViewModel());
+            });
+            var CustomerViewModel = function () {
+                //Declare observable will be bind with UI
+                var self = this;
+                self.CustomerName = ko.observable("");
+                self.Salary = ko.observable("");
+                self.DepartName = ko.observable("");
+                console.log("clicked");
+                //Object which stored data stored in the observable
+                var CustomerData = {
+                    CustomerName: self.CustomerName,
+                    Salary: self.Salary,
+                    DepartName: self.DepartName,
+                };
+                //Declaring an observableArray for Storing The Json Response
+                self.Customers = ko.observableArray([]);
+                self.Save = function () {
+                    $.ajax({
+                        type: "POST",
+                        url: "/Customer/Create",
+                        data: ko.toJSON(CustomerData), // convert observable data into Json
+                        contentType: "application/json",
+                        success: function (data) {
+                            alert("Record added Successfully");
+                            console.log("working");
+                            location.href = "index";
+                        },
+
+                        error: function () {
+                            alert("Failed");
+                        }
+
+                    })
+                }
+            }
+
+        </script>

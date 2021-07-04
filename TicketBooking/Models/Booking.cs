@@ -5,7 +5,7 @@ namespace TicketBooking.Models
 {
     public class Booking
     {
-        [Key]
+   [Key]
         public int BookingID { get; set; }
         public string Name { get; set; }
         public string PhoneNo { get; set; }

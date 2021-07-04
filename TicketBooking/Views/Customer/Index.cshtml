@@ -10,36 +10,78 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CustomerName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Salary)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DepartName)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CustomerName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Salary)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DepartName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CustomerNo }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CustomerNo }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CustomerNo })
-        </td>
-    </tr>
-}
+    <thead>
+        <tr>
+            <th>
+                Csutomer Id
+            </th>
+            <th>
+                Customer Name
+            </th>
+            <th>
+                Salary
+            </th>
+            <th>
+                Department Name
+            </th>
+        </tr>
+    </thead>
+    <tbody data-bind="foreach: Customers">
+        <tr>
+            <td data-bind="text: CustomerId"></td>
+            <td data-bind="text: CustomerName"></td>
+            <td data-bind="text: Salary"></td>
+            <td data-bind="text: DepartName"></td>
+            <td>
+                <a data-bind="click: editCustomer">Edit</a>
+                <a data-bind="click: deleteCustomer">Delete</a>
+            </td>
+        </tr>
+    </tbody>
 
 </table>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/knockout-3.5.1.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+    $(function () {
+        ko.applyBindings(CustomerViewModel);
+        CustomerViewModel.getCustomers();
+        console.log('Success');
+    });
+    var CustomerViewModel = {
+        Customers: ko.observableArray([]),
+        getCustomers: function () {
+            var self = this;
+                            $.ajax({
+                                type: "GET",
+                                url: '/Customer/FetchCustomer',
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (data) {
+                                    self.Customers(data); //Put the response in ObservableArray  
+                                },
+                                error: function (err) {
+                                    alert(err.status + " : " + err.statusText);
+                                }
+                            });
+                        },
+                    };  
+
+            
+    self.editCustomer = function (customer) {
+        window.location.href = '/Customer/Edit/' + customer.CustomerId;
+    };
+                    self.deleteCustomer = function (customer) {
+                        window.location.href = '/Customer/Delete/' + customer.CustomerId;
+    };
+    function Customers(data) {
+        this.CustomerId = ko.observable(data.CustomerId);
+        this.CustomerName = ko.observable(data.CustomerName);
+        this.Salary = ko.observable(data.Salary);
+        this.DepartName = ko.observable(data.DepartName);
+    }
+
+</script>

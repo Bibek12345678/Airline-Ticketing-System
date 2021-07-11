@@ -251,8 +251,8 @@ C:\Users\bibek\Desktop\TicketBooking\TicketBooking\bin\System.Web.WebPages.Razor
 C:\Users\bibek\Desktop\TicketBooking\TicketBooking\bin\Newtonsoft.Json.xml
 C:\Users\bibek\Desktop\TicketBooking\TicketBooking\bin\Antlr3.Runtime.pdb
 C:\Users\bibek\Desktop\TicketBooking\TicketBooking\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\bibek\Desktop\TicketBooking\TicketBooking\obj\Debug\TicketBooking.csprojAssemblyReference.cache
 C:\Users\bibek\Desktop\TicketBooking\TicketBooking\obj\Debug\TicketBooking.csproj.CoreCompileInputs.cache
 C:\Users\bibek\Desktop\TicketBooking\TicketBooking\obj\Debug\TicketBooking.csproj.CopyComplete
 C:\Users\bibek\Desktop\TicketBooking\TicketBooking\obj\Debug\TicketBooking.dll
 C:\Users\bibek\Desktop\TicketBooking\TicketBooking\obj\Debug\TicketBooking.pdb
+C:\Users\bibek\Desktop\TicketBooking\TicketBooking\obj\Debug\TicketBooking.csproj.AssemblyReference.cache

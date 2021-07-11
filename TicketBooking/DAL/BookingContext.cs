@@ -21,6 +21,15 @@ namespace TicketBooking.DAL
         public DbSet<Booking> Bookings { get; set; }
 
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<OrderDetails> OrderDetails { get; set; }
+        public DbSet<OrderMaster> OrderMasters { get; set; }
+        public DbSet<Category> Categorys { get; set; }
+        public DbSet<Application> Applications { get; set; }
+        public DbSet<Experience> Experiences { get; set; }
+
+
+
     }
      
 }
